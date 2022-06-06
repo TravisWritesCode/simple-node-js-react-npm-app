@@ -22,6 +22,6 @@ steps:
     script: |
       npm install snyk -g
       npm root -g  > npmPath.txt
-      SET /p npmPath= < npmPath.txt 
-      SET npmPath =%npmPath%/snyk.exe
-      echo "%npmPath%"
+      set /p npmPath= < npmPath.txt
+      set npmPath =%npmPath%/snyk.exe
+      echo %npmPath%
