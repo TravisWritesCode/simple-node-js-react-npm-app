@@ -25,7 +25,5 @@ steps:
   inputs:
     script: |
       npm install snyk -g
-      npm root -g
-      npm root -g  > npmPath.txt
-      set /p npmPath= < npmPath.txt
-      dir "%npmPath%"
+      npm root -g      
+      dir /opt/hostedtoolcache/node/16.15.0/x64/lib/node_modules
