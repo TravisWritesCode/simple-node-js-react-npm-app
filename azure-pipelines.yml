@@ -1,4 +1,5 @@
 # Node.js
+
 # Build a general Node.js project with npm.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -25,5 +26,14 @@ steps:
     serviceConnectionEndpoint: 'test'
     testType: 'app'
     monitorWhen: 'never'
-    failOnIssues: true
+    failOnIssues: false
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      snyk auth 35373640-21a0-42d9-b653-c1250ee085af
+      snyk code test --json
 
