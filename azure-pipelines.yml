@@ -25,5 +25,7 @@ steps:
   inputs:
     script: |
       npm install snyk -g
-      npm root -g      
-      dir /opt/hostedtoolcache/node/16.15.0/x64/lib/node_modules
+      npm root -g  > npmPath.txt
+      set /p npmPath= < npmPath.txt
+      "%npmPath%"/snyk.exe auth 35373640-21a0-42d9-b653-c1250ee085af
+      "%npmPath%"/snyk.exe/snyk.exe code test --json
