@@ -22,7 +22,7 @@ steps:
     script: |
       npm install snyk -g
       npm root -g  > npmPath.txt
-      set /p npmPath= < npmPath.txt
+      set /p npmPath=< npmPath.txt
       set snykPath=%npmPath%/snyk.exe
       echo %snykPath%
       %snykPath% help
