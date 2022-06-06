@@ -26,11 +26,3 @@ steps:
     monitorWhen: 'always'
     failOnIssues: true
 
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
-      snyk auth 83cc3e90-6b04-42b8-b09b-4bd4942ff798
-      snyk test
