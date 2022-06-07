@@ -17,10 +17,16 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-- bash: |
-    echo "##vso[task.setvariable variable=myVar;]foo"
-- bash: |
-    echo "You can use macro syntax for variables: $(myVar)"
+- task: Bash@3
+  inputs:
+    script: |
+      echo "##vso[task.setvariable variable=myVar;]foo"
+      echo "You can use macro syntax for variables: $(myVar)"
+
+# - bash: |
+#     echo "##vso[task.setvariable variable=myVar;]foo"
+# - bash: |
+#     echo "You can use macro syntax for variables: $(myVar)"
 
       
 
