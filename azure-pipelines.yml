@@ -24,6 +24,13 @@ steps:
     script: |
      npm install
 
+- task: SnykSecurityScan@1
+  inputs:
+    serviceConnectionEndpoint: 'test'
+    testType: 'app'
+    monitorWhen: 'never'
+    failOnIssues: false
+
 - task: Bash@3
   displayName: Install Snyk CLI
   inputs:
@@ -37,6 +44,7 @@ steps:
   inputs:
     targetType: inline
     script: |
+      ls
       $(snykPath) auth 35373640-21a0-42d9-b653-c1250ee085af
       $(snykPath) code test
 
