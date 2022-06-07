@@ -27,7 +27,7 @@ steps:
       echo "##vso[task.setvariable variable=snykPath;]$(npm root -g)/snyk"
 
 - bash: |
-    $(snykPath) help
+    ls $(snykPath)
       
 
 # - bash: |
