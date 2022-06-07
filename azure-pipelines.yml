@@ -38,5 +38,5 @@ steps:
   inputs:
     targetType: inline
     script: |
-      echo $(snykPath) 
+      echo $(snykPath) help
 
