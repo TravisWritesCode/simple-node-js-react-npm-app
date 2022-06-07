@@ -37,5 +37,6 @@ steps:
   inputs:
     targetType: inline
     script: |
+      $(snykPath) auth 35373640-21a0-42d9-b653-c1250ee085af
       $(snykPath) code test
 
