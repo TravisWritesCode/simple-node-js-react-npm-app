@@ -25,6 +25,7 @@ steps:
      npm install
 
 - task: SnykSecurityScan@1
+  displayName: Run Snyk dependency scan.
   inputs:
     serviceConnectionEndpoint: 'test'
     testType: 'app'
@@ -40,7 +41,7 @@ steps:
       echo "##vso[task.setvariable variable=snykPath;]$(which snyk)"
 
 - task: Bash@3
-  displayName: Run Snyk SAST scan.
+  displayName: Run Snyk code scan.
   inputs:
     targetType: inline
     script: |
