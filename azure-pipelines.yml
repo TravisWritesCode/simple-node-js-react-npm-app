@@ -24,10 +24,10 @@ steps:
     targetType: inline
     script: |
       npm install snyk -g
-      echo "##vso[task.setvariable variable=snykPath;]$(npm root -g)"
+      echo "##vso[task.setvariable variable=snykPath;]$(npm root -g)/snyk.exe"
 
 - bash: |
-    echo "Snyk path: $(snykPath)"
+    $(snykPath) help
       
 
 # - bash: |
