@@ -17,12 +17,12 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-# - task: Bash@3
-#   displayName: Install project dependencies.
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#      npm install
+- task: Bash@3
+  displayName: Install project dependencies.
+  inputs:
+    targetType: 'inline'
+    script: |
+     npm install
 
 - task: Bash@3
   displayName: Install Snyk CLI
@@ -30,7 +30,6 @@ steps:
     targetType: inline
     script: |
       npm install snyk -g
-      # echo "##vso[task.setvariable variable=snykPath;]$(npm root -g)"
       echo "##vso[task.setvariable variable=snykPath;]$(which snyk)"
 
 - task: Bash@3
@@ -38,5 +37,5 @@ steps:
   inputs:
     targetType: inline
     script: |
-      $(snykPath) help
+      $(snykPath) code test
 
