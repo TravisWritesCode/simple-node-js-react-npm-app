@@ -21,8 +21,8 @@ steps:
   inputs:
     targetType: inline
     script: |
-      echo "##vso[task.setvariable variable=myVar;]foo"
-      echo "You can use macro syntax for variables: $(myVar)"
+      echo "##vso[task.setvariable variable=test;]foo"
+      echo "You can use macro syntax for variables: $(test)"
 
 # - bash: |
 #     echo "##vso[task.setvariable variable=myVar;]foo"
