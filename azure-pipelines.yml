@@ -18,25 +18,26 @@ steps:
   displayName: 'Install Node.js'
 
 - task: Bash@3
+  displayName: Install project dependencies.
+  inputs:
+    targetType: 'inline'
+    script: |
+     npm install
+
+- task: Bash@3
   name: Install_Snyk_CLI
   displayName: Install Snyk CLI
   inputs:
     targetType: inline
     script: |
       npm install snyk -g
-      echo "##vso[task.setvariable variable=snykPath;]$(npm root -g)/snyk"
+      echo "##vso[task.setvariable variable=snykPath;]$(npm root -g)"
 
-- bash: |
-    cd $(snykPath)
-    cd ..
-    snyk help
-      
+- task: Bash@3
+  name: Install_Snyk_CLI
+  displayName: Install Snyk CLI
+  inputs:
+    targetType: inline
+    script: |
+      $(snykPath) code test
 
-# - bash: |
-#     echo "##vso[task.setvariable variable=myVar;]foo"
-# - bash: |
-#     echo "You can use macro syntax for variables: $(myVar)"
-
-      
-
-      
