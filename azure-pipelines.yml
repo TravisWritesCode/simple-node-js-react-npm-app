@@ -15,20 +15,20 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-- task: Bash@3
-  displayName: Install project dependencies.
-  inputs:
-    targetType: 'inline'
-    script: |
-     npm install
+# - task: Bash@3
+#   displayName: Install project dependencies.
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#      npm install
 
-- task: SnykSecurityScan@1
-  displayName: Run Snyk dependency scan.
-  inputs:
-    serviceConnectionEndpoint: 'test'
-    testType: 'app'
-    monitorWhen: 'never'
-    failOnIssues: false
+# - task: SnykSecurityScan@1
+#   displayName: Run Snyk dependency scan.
+#   inputs:
+#     serviceConnectionEndpoint: 'test'
+#     testType: 'app'
+#     monitorWhen: 'never'
+#     failOnIssues: false
 
 - task: Bash@3
   displayName: Install Snyk CLI
@@ -53,6 +53,7 @@ steps:
     script: |
       $(snyk) auth 35373640-21a0-42d9-b653-c1250ee085af
       mkdir -p $(System.DefaultWorkingDirectory)/snyk-scan-results
+      ls $(System.DefaultWorkingDirectory)
 
 - task: Bash@3
   displayName: Run Snyk code scan and generate HTML report.
