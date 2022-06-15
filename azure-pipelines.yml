@@ -15,12 +15,12 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-# - task: Bash@3
-#   displayName: Install project dependencies.
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#      npm install
+- task: Bash@3
+  displayName: Install project dependencies.
+  inputs:
+    targetType: 'inline'
+    script: |
+     npm install
 
 # - task: SnykSecurityScan@1
 #   displayName: Run Snyk dependency scan.
@@ -55,11 +55,18 @@ steps:
       mkdir snyk-scan-results
 
 - task: Bash@3
+  displayName: Run Snyk dependency scan and generate HTML report.
+  inputs:
+    targetType: inline
+    script: |
+      $(snyk) test --all-projects --json | $(snyk-to-html) -o snyk-scan-results/snyk-dependency-scan-results.html
+
+- task: Bash@3
   displayName: Run Snyk code scan and generate HTML report.
   inputs:
     targetType: inline
     script: |
-      $(snyk) code test --json | $(snyk-to-html) -o snyk-scan-results/snyk-sast-results.html
+      $(snyk) code test --json | $(snyk-to-html) -o snyk-scan-results/snyk-code-scan-results.html
       
 - task: PublishPipelineArtifact@1
   displayName: Publish Snyk scan artifacts.
