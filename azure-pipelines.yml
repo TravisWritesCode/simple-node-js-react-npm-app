@@ -40,7 +40,7 @@ steps:
       
 - task: Bash@3
   displayName: Authenticate Snyk and create report directory.
-  env:
+  with:
     snyk_poc_token: ${{secrets.snyk_poc_token}}
   inputs:
     targetType: inline
