@@ -40,12 +40,10 @@ steps:
       
 - task: Bash@3
   displayName: Authenticate Snyk and create report directory.
-  with:
-    snyk_poc_token: ${{secrets.snyk_poc_token}}
   inputs:
     targetType: inline
     script: |
-      $(snyk) auth "$snyk_poc_token"
+      $(snyk) auth a5ba73d2-a206-4657-b777-9e94b6732003
       mkdir snyk-scan-results
 
 - task: Bash@3
