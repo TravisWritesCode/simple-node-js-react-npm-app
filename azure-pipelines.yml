@@ -1,6 +1,4 @@
 # Node.js
-
-
 # Build a general Node.js project with npm.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -38,14 +36,28 @@ steps:
     targetType: inline
     script: |
       npm install snyk -g
-      echo "##vso[task.setvariable variable=snykPath;]$(which snyk)"
+      echo "##vso[task.setvariable variable=snyk;]$(which snyk)"
+      
+- task: Bash@3
+  displayName: Install Snyk-To-HTML
+  inputs:
+    targetType: inline
+    script: |
+      npm install snyk-to-html -g
+      echo "##vso[task.setvariable variable=snyk-to-html;]$(which snyk-to-html)"
 
 - task: Bash@3
-  displayName: Run Snyk code scan.
+  displayName: Run Snyk code scan and generate HTML report.
   inputs:
     targetType: inline
     script: |
       ls
-      $(snykPath) auth 35373640-21a0-42d9-b653-c1250ee085af
-      $(snykPath) code test
+      $(snyk) auth 35373640-21a0-42d9-b653-c1250ee085af
+      $(snyk) code test --json | $(snyk-to-html) -o $(System.DefaultWorkingDirectory)/snyk-scan-results/snyk-sast-results.html
+      
+- task: PublishPipelineArtifact@1
+  displayName: Publish Snyk scan artifacts.
+  inputs:
+    targetPath: $(System.DefaultWorkingDirectory)/snyk-scan-results
+    artifactName: snyk-scan-results
 
