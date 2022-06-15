@@ -45,14 +45,20 @@ steps:
     script: |
       npm install snyk-to-html -g
       echo "##vso[task.setvariable variable=snyk-to-html;]$(which snyk-to-html)"
+      
+- task: Bash@3
+  displayName: Authenticate Snyk and create artifact directory.
+  inputs:
+    targetType: inline
+    script: |
+      $(snyk) auth 35373640-21a0-42d9-b653-c1250ee085af
+      mkdir -p $(System.DefaultWorkingDirectory)/snyk-scan-results
 
 - task: Bash@3
   displayName: Run Snyk code scan and generate HTML report.
   inputs:
     targetType: inline
     script: |
-      ls
-      $(snyk) auth 35373640-21a0-42d9-b653-c1250ee085af
       $(snyk) code test --json | $(snyk-to-html) -o $(System.DefaultWorkingDirectory)/snyk-scan-results/snyk-sast-results.html
       
 - task: PublishPipelineArtifact@1
