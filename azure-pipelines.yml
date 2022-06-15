@@ -35,7 +35,7 @@ steps:
   inputs:
     targetType: inline
     script: |
-      npm install snyk -g
+      npm install snyk --location=global
       echo "##vso[task.setvariable variable=snyk;]$(which snyk)"
       
 - task: Bash@3
@@ -43,7 +43,7 @@ steps:
   inputs:
     targetType: inline
     script: |
-      npm install snyk-to-html -g
+      npm install snyk-to-html --location=global
       echo "##vso[task.setvariable variable=snyk-to-html;]$(which snyk-to-html)"
       
 - task: Bash@3
@@ -60,6 +60,7 @@ steps:
   inputs:
     targetType: inline
     script: |
+      ls $(System.DefaultWorkingDirectory)
       $(snyk) code test --json | $(snyk-to-html) -o $(System.DefaultWorkingDirectory)/snyk-scan-results/snyk-sast-results.html
       
 - task: PublishPipelineArtifact@1
