@@ -52,20 +52,18 @@ steps:
     targetType: inline
     script: |
       $(snyk) auth 35373640-21a0-42d9-b653-c1250ee085af
-      mkdir -p $(System.DefaultWorkingDirectory)/snyk-scan-results
-      ls $(System.DefaultWorkingDirectory)
+      mkdir snyk-scan-results
 
 - task: Bash@3
   displayName: Run Snyk code scan and generate HTML report.
   inputs:
     targetType: inline
     script: |
-      ls $(System.DefaultWorkingDirectory)
-      $(snyk) code test --json | $(snyk-to-html) -o $(System.DefaultWorkingDirectory)/snyk-scan-results/snyk-sast-results.html
+      $(snyk) code test --json | $(snyk-to-html) -o snyk-scan-results/snyk-sast-results.html
       
 - task: PublishPipelineArtifact@1
   displayName: Publish Snyk scan artifacts.
   inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/snyk-scan-results
+    targetPath: snyk-scan-results
     artifactName: snyk-scan-results
 
